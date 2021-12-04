@@ -6,7 +6,7 @@
 <h3 align="center"> Addition of Big Integers </h3>
 
 ```
-string add_Num(string a, string b)
+string Add_Num(string &a, string &b)
 {
     string sum = "";
     long long i = (long long)a.size() - 1, j = (long long)b.size() - 1;
@@ -24,7 +24,47 @@ string add_Num(string a, string b)
         sum += '0' + (carry % 10);
         carry /= 10;
     }
-    reverse(all(sum));
+    reverse(sum.begin(), sum.end());
     return sum;
+}
+```
+---
+
+<h3 align="center"> Difference of Big Integers </h3>
+
+```
+string Diff_Num(string &a, string &b)
+{
+    string diff = "";
+    long long i = (long long)a.size() - 1;
+    long long j = (long long)b.size() - 1;
+    long long carry = 0;
+    while (i >= 0 or j >= 0)
+    {
+        if (j >= 0)
+        {
+            if (a[i] >= b[j])
+            {
+                if (i != 0)
+                    diff += (a[i] - b[j]) + '0'; 
+            }
+            else
+            {
+                long long k = i - 1;
+                while (!a[k])
+                    k--;
+                a[k]--;
+                for (long long x = k; x > i; x--)
+                    a[x]++;
+                diff += 2 * '0' + 10 - b[j];
+            }
+        }
+        else
+            diff += a[i];
+        i--;
+        j--;
+    }
+    reverse(diff.begin(), diff.end());
+    return diff;
 }
 ```
