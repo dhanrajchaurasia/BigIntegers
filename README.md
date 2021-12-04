@@ -1,9 +1,9 @@
-<h2 align="center"> Big-Integers </h2>
+<h1 align="center"> Big-Integers </h1>
 <p align="center"> As in C++, there is no any Big Integer datatype as it exists only on Java and PythonIt so I made these implementions for C++. This repo contains all the operations of Big Integers for C++. </p>
 
 ---
 
-<h3 align="center"> Addition/Substraction of Big Integers </h3>
+<h2 align="center"> Addition/Substraction of Big Integers </h2>
 
 - A Boolean Type Function to check whether fist string is smaller than second or not.
 
