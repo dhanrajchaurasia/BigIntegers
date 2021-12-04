@@ -35,9 +35,9 @@ string Add_Num(string &a, string &b)
 ```
 void Make_A_Bigger(string &a, string &b)
 {
-    if (size(a) < size(b))
+    if ((long long)a.size() < (long long)b.size())
         swap(a, b);
-    else if (size(a) == size(b))
+    else if ((long long)a.size() == (long long)a.size())
     {
         rep(i, 0, size(a))
         {
