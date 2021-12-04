@@ -37,7 +37,7 @@ void Make_A_Bigger(string &a, string &b)
 {
     if ((long long)a.size() < (long long)b.size())
         swap(a, b);
-    else if ((long long)a.size() == (long long)a.size())
+    else if ((long long)a.size() == (long long)b.size())
     {
         for (long long i = 0; i < (long long)a.size(); i++)
         {
