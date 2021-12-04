@@ -1,5 +1,5 @@
 <h1 align="center"> Big Integers For C++ </h1>
-<p align="center"> As in C++, there is no any Big Integer datatype as it exists only on Java and PythonIt so I made these implementions for C++. This repo contains all the operations of Big Integers for C++. </p>
+<p align="center"> As in C++, there is no any <b>Big Integer</b> datatype as it exists only on Java and Python so I made these implementions for C++. <br/>This repository contains all the operations of <b>Big Integer</b> for C++. </p>
 <p align="center"> As in C++ we can store atmost <b>2e18 (2 x 10^18)</b> on <b>long long int</b> so for more than 2e18 we can implement a string or an array.
     
     
