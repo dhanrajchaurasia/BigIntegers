@@ -3,40 +3,18 @@
 
 ---
 
-<h3 align="center"> Addition of Big Integers </h3>
+<h3 align="center"> Addition/Substraction of Big Integers </h3>
+
+- A Boolean Type Function to check whether fist string is smaller than second or not.
 
 ```
-string Add_Num(string &a, string &b)
+
+bool isFirstSmall(string a, string b)
 {
-    string sum = "";
-    long long i = (long long)a.size() - 1, j = (long long)b.size() - 1;
-    long long carry = 0;
-    while (i >= 0 or j >= 0)
-    {
-        carry += (a[i] - '0') * (i >= 0) + (b[j] - '0') * (j >= 0);
-        sum += '0' + (carry % 10);
-        carry /= 10;
-        i--;
-        j--;
-    }
-    while (carry)
-    {
-        sum += '0' + (carry % 10);
-        carry /= 10;
-    }
-    reverse(sum.begin(), sum.end());
-    return sum;
-}
-```
----
-
-<h3 align="center"> Difference of Big Integers </h3>
-
-```
-void Make_A_Bigger(string &a, string &b)
-{
-    if ((long long)a.size() < (long long)b.size())
-        swap(a, b);
+    if ((long long)a.size() > (long long)b.size())
+        return false;
+    else if ((long long)a.size() < (long long)b.size())
+        return true;
     else if ((long long)a.size() == (long long)b.size())
     {
         for (long long i = 0; i < (long long)a.size(); i++)
@@ -44,20 +22,53 @@ void Make_A_Bigger(string &a, string &b)
             if (a[i] != b[i])
             {
                 if (a[i] < b[i])
-                    swap(a, b);
-                break;
+                    return true;
+                return false;;
             }
         }
     }
+    return false;
 }
 
-string Diff_Num(string &a, string &b)
+```
+
+- A Function to return the addition of a and b where a is greater than b.
+
+```
+string Add_Num(string a, string b)
 {
-    Make_A_Bigger(a, b);
+    string sum = "";
+    long long i = (long long)a.size() - 1;
+    long long j = (long long)b.size() - 1;
+    long long temp_sum = 0;
+    while (i >= 0 or j >= 0)
+    {
+        temp_sum += (a[i] - '0') * (i >= 0) + (b[j] - '0') * (j >= 0);
+        sum += '0' + (temp_sum % 10);
+        temp_sum /= 10;
+        i--;
+        j--;
+    }
+    while (temp_sum)
+    {
+        sum += '0' + (temp_sum % 10);
+        temp_sum /= 10;
+    }
+    reverse(sum.begin(), sum.end());
+    return sum;
+}
+
+```
+- A Function to return the substraction of a and b where a is greater than b.
+
+```
+string Sub_Num(string a, string b)
+{
+    if (a == b)
+        return "0";
     string diff = "";
     long long i = (long long)a.size() - 1;
     long long j = (long long)b.size() - 1;
-    long long carry = 0;
     while (i >= 0 or j >= 0)
     {
         if (j >= 0)
@@ -70,20 +81,67 @@ string Diff_Num(string &a, string &b)
             else
             {
                 long long k = i - 1;
-                while (!a[k])
+                while (a[k] == '0')
                     k--;
                 a[k]--;
-                for (long long x = k; x > i; x--)
-                    a[x]++;
+                for (long long x = k + 1; x < i; x++)
+                    a[x] = '9';
                 diff += 2 * '0' + 10 - b[j];
             }
         }
         else
+        {
+            if (i == 0 and a[i] == '0')
+                break;
             diff += a[i];
+        }
         i--;
         j--;
     }
     reverse(diff.begin(), diff.end());
     return diff;
 }
+
+```
+- A Function to return the addition/substraction of a and b.
+
+```
+string AddorSub(string a, string b)
+{
+    string res = "";
+    if (a[0] == '-' and b[0] == '-')
+    {
+        a = a.substr(1, (long long)a.size() - 1);
+        b = b.substr(1, (long long)b.size() - 1);
+        res += '-';
+    }
+    if (a[0] == '-' or b[0] == '-')
+    {
+        if (a[0] == '-')
+        {
+            a = a.substr(1, (long long)a.size() - 1);
+            if (isFirstSmall(a, b))
+                res += Sub_Num(b, a);
+            else
+                res = '-' + Sub_Num(a, b);
+        }
+        else
+        {
+            b = b.substr(1, (long long)b.size() - 1);
+            if (isFirstSmall(b, a))
+                res += Sub_Num(a, b);
+            else
+                res = '-' + Sub_Num(b, a);
+        }
+    }
+    else
+    {
+        if (isFirstSmall(a, b))
+            res += Add_Num(b, a);
+        else
+            res += Add_Num(a, b);
+    }
+    return res;
+}
+
 ```
