@@ -39,7 +39,7 @@ void Make_A_Bigger(string &a, string &b)
         swap(a, b);
     else if ((long long)a.size() == (long long)a.size())
     {
-        rep(i, 0, size(a))
+        for (long long i = 0; i < (long long)a.size(); i++)
         {
             if (a[i] != b[i])
             {
@@ -50,6 +50,7 @@ void Make_A_Bigger(string &a, string &b)
         }
     }
 }
+
 string Diff_Num(string &a, string &b)
 {
     Make_A_Bigger(a, b);
