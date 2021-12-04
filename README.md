@@ -33,8 +33,26 @@ string Add_Num(string &a, string &b)
 <h3 align="center"> Difference of Big Integers </h3>
 
 ```
+void Make_A_Bigger(string &a, string &b)
+{
+    if (size(a) < size(b))
+        swap(a, b);
+    else if (size(a) == size(b))
+    {
+        rep(i, 0, size(a))
+        {
+            if (a[i] != b[i])
+            {
+                if (a[i] < b[i])
+                    swap(a, b);
+                break;
+            }
+        }
+    }
+}
 string Diff_Num(string &a, string &b)
 {
+    Make_A_Bigger(a, b);
     string diff = "";
     long long i = (long long)a.size() - 1;
     long long j = (long long)b.size() - 1;
