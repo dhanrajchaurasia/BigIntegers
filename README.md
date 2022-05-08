@@ -1,7 +1,123 @@
 <h1 align="center"> Big Integers For C++ </h1>
 <p align="center"> As in C++, there is no any <b>Big Integer</b> datatype as it exists only on Java and Python so I made these implementions for C++. <br/>This repository contains all the operations of <b>Big Integer</b> for C++. </p>
-<p align="center"> As in C++ we can store atmost <b>2e18 (2 x 10^18)</b> on <b>long long int</b> so for more than 2e18 we can implement a string or an array.
+<p align="center"> As in C++ we can store atmost <b> 2^64 - 1 </b> on <b>long long int</b> so for more than 2 ^ 64 - 1 we can implement a string or an array.
     
+ ```cpp
+struct ModInt;
+vector<ModInt> inverse();
+ 
+using ModType = long long; // set Type. Cann multiply ints if using long long.
+struct ModInt
+{
+    static inline vector<ModInt> precalcInverse;
+    static void precalc()
+    {
+        precalcInverse = inverse();
+    }
+ 
+    static inline ModType mod = 998244353; // Set this value
+    ModType val;
+    ModInt(ModType v = 0) : val(v % mod) { }
+    static void setMod(ModType m)
+    {
+        mod = m;
+        if(precalcInverse.size() > 0)
+        {
+            precalcInverse = inverse();
+        }
+    }
+    ModInt &operator+=(ModInt a)
+    {
+        if ((val += a.val) >= mod) val -= mod;
+        return *this;
+    }
+    ModInt &operator-=(ModInt a)
+    {
+        if ((val -= a.val) < 0) val += mod;
+        return *this;
+    }
+    ModInt &operator*=(ModInt a)
+    {
+        val = (val * a.val) % mod;
+        return *this;
+    }
+    ModInt &operator/=(ModInt a)
+    {
+        if(precalcInverse.size() > a.val)
+        {
+            *this *= precalcInverse[a.val];
+            return *this;
+        }
+        ModType u = 1, v = a.val, s = 0, t = mod;
+        while (v)
+        {
+            ModType q = t / v;
+            swap(s -= u * q, u);
+            swap(t -= v * q, v);
+        }
+        a.val = (s < 0 ? s + mod : s);
+        val /= t;
+        return (*this) *= a;
+    }
+    ModInt inv() const
+    {
+        return ModInt(1) /= (*this);
+    }
+    bool operator<(ModInt x) const
+    {
+        return val < x.val;
+    }
+};
+ostream &operator<<(ostream &os, ModInt a)
+{
+    os << a.val;
+    return os;
+}
+ModInt operator+(ModInt a, ModInt b)
+{
+    return a += b;
+}
+ModInt operator-(ModInt a, ModInt b)
+{
+    return a -= b;
+}
+ModInt operator*(ModInt a, ModInt b)
+{
+    return a *= b;
+}
+ModInt operator/(ModInt a, ModInt b)
+{
+    return a /= b;
+}
+ModInt mpow(ModInt a, ModType e)
+{
+    ModInt x(1);
+    for (; e > 0; e /= 2)
+    {
+        if (e % 2 == 1) x *= a;
+        a *= a;
+    }
+    return x;
+}
+// compute inv[1], inv[2], ..., inv[mod-1] in O(n) time
+vector<ModInt> inverse()
+{
+    ModType mod = ModInt::mod;
+    vector<ModInt> inv(mod);
+    inv[1].val = 1;
+    for (ModType a = 2; a < mod; ++a)
+        inv[a] = inv[mod % a] * ModInt(mod - mod / a);
+    return inv;
+}
+ModInt stringToModInt(string s)
+{
+    ModType val = 0;
+    for (int i = 0; i < s.size(); ++i)
+        val = (val * 10 + (s[i] - '0')) % ModInt::mod;
+    return ModInt(val);
+}
+  
+``` 
     
 ---
 
@@ -9,7 +125,7 @@
 
 - A Boolean Type Function to check whether fist string is smaller than second or not.
 
-```
+```cpp
 
 bool isFirstSmall(string a, string b)
 {
@@ -107,7 +223,7 @@ string Sub_Num(string a, string b)
 ```
 - A Function to return the addition/substraction of a and b.
 
-```
+```cpp
 string AddorSub(string a, string b)
 {
     string res = "";
