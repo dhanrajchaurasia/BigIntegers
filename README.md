@@ -1,7 +1,10 @@
 <h1 align="center"> Big Integers For C++ </h1>
 <p align="center"> As in C++, there is no any <b>Big Integer</b> datatype as it exists only on Java and Python so I made these implementions for C++. <br/>This repository contains all the operations of <b>Big Integer</b> for C++. </p>
-<p align="center"> As in C++ we can store atmost <b> 2^64 - 1 </b> on <b>long long int</b> so for more than 2 ^ 64 - 1 we can implement a string or an array.
+<p align="center"> As in C++ we can store atmost <b> 2^64 - 1 </b> on <b>long long int</b> so for more than 2 ^ 64 - 1 we can implement a string or an array.</p>
     
+<h2 align="center">A complete implemention of Mod-Int Data Structure,</h2>
+    
+ 
  ```cpp
 struct ModInt;
 vector<ModInt> inverse();
@@ -118,8 +121,8 @@ ModInt stringToModInt(string s)
 }
   
 ``` 
-    
----
+<img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+   
 
 <h2 align="center"> Addition/Substraction of Big Integers </h2>
 
@@ -152,7 +155,7 @@ bool isFirstSmall(string a, string b)
 
 - A Function to return the addition of a and b where a is greater than b.
 
-```
+```cpp
 string Add_Num(string a, string b)
 {
     string sum = "";
@@ -179,7 +182,7 @@ string Add_Num(string a, string b)
 ```
 - A Function to return the substraction of a and b where a is greater than b.
 
-```
+```cpp
 string Sub_Num(string a, string b)
 {
     if (a == b)
